@@ -19,6 +19,8 @@ namespace CodeCamp.Core.DataAccess
             // including this as a example of how to use compiler directives in shared layers
 #if WINDOWS_PHONE
             _fileHelper = new IsolatedStorageFileSystemHelper();
+#elif Metrostyle
+            _fileHelper = new ApplicationDataFileSystemHelper();
 #elif __ANDROID__
             string folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal),
                                              "../cache");
@@ -33,17 +35,46 @@ namespace CodeCamp.Core.DataAccess
 			Repository = new CodeCampRepository(null);
 			_client = new CodeCampDataClient(baseUrl, campKey);
 
+            Initialize();
+		}
+
+#if Metrostyle
+        async void Initialize()
+        {
+            try
+            {
+                var fileExists = await _fileHelper.FileExists(_fileName);
+                if (!fileExists)
+                {
+                    downloadNewXmlFile();
+                }
+                else
+                {
+                    Repository = new CodeCampRepository(await _fileHelper.ReadFile(_fileName));
+                    MessageHub.Instance.Publish(new FinishedLoadingScheduleFromStorageMessage(this));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+        }
+#else
+        void Initialize()
+        {
             if (!_fileHelper.FileExists(_fileName))
             {
                 downloadNewXmlFile();
             }
-			else
-			{
+            else
+            {
                 Repository = new CodeCampRepository(_fileHelper.ReadFile(_fileName));
-			}
-		}
-		
-		public void CheckForUpdatedSchedule()
+                MessageHub.Instance.Publish(new FinishedLoadingScheduleFromStorage(this));
+            }
+        }
+#endif
+
+        public void CheckForUpdatedSchedule()
 		{
 			MessageHub.Instance.Publish(new StartedCheckingForUpdatedScheduleMessage(this));
 			

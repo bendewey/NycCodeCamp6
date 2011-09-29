@@ -88,6 +88,9 @@
     <Compile Include="..\CodeCamp.Core\Messaging\Messages\ErrorDownloadingUpdatedScheduleMessage.cs">
       <Link>Messaging\Messages\ErrorDownloadingUpdatedScheduleMessage.cs</Link>
     </Compile>
+    <Compile Include="..\CodeCamp.Core\Messaging\Messages\FinishedLoadingScheduleFromStorageMessage.cs">
+      <Link>Messaging\Messages\FinishedLoadingScheduleFromStorageMessage.cs</Link>
+    </Compile>
     <Compile Include="..\CodeCamp.Core\Messaging\Messages\FinishedUpdatingScheduleMessage.cs">
       <Link>Messaging\Messages\FinishedUpdatingScheduleMessage.cs</Link>
     </Compile>

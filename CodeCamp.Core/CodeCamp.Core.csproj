@@ -93,6 +93,9 @@
     <Compile Include="Messaging\Messages\ErrorDownloadingUpdatedScheduleMessage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messaging\Messages\FinishedLoadingScheduleFromStorageMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Messaging\Messages\FinishedUpdatingScheduleMessage.cs">
       <SubType>Code</SubType>
     </Compile>

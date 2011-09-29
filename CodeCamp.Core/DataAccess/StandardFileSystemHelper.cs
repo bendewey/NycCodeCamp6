@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
+#if !Metrostyle
 namespace CodeCamp.Core.DataAccess
 {
     public class StandardFileSystemHelper : IFileSystemHelper
@@ -36,3 +37,4 @@ namespace CodeCamp.Core.DataAccess
         }
     }
 }
+#endif

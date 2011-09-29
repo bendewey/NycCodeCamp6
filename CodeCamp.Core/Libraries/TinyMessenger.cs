@@ -15,6 +15,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace TinyMessenger
@@ -134,7 +135,11 @@ namespace TinyMessenger
             if (hub == null)
                 throw new ArgumentNullException("hub");
 
+#if Metrostyle
+            if (!typeof(ITinyMessage).GetTypeInfo().IsAssignableFrom(messageType.GetTypeInfo()))
+#else
             if (!typeof(ITinyMessage).IsAssignableFrom(messageType))
+#endif
                 throw new ArgumentOutOfRangeException("messageType");
 
             _Hub = new WeakReference(hub);
@@ -149,9 +154,20 @@ namespace TinyMessenger
 
                 if (hub != null)
                 {
+#if Metrostyle
+                    // GetMethod is in the docs but doesn't seem to be available: http://msdn.microsoft.com/en-us/library/windows/apps/8zz808e6(v=VS.110).aspx
+                    var unsubscribeMethod = typeof(ITinyMessengerHub).GetTypeInfo().GetDeclaredMethod("Unsubscribe");
+                    System.Diagnostics.Debug.Assert(unsubscribeMethod == null, "Unable to locate a valid Unsubscribe method using the Metro developer preview");
+                    if (unsubscribeMethod != null)
+                    {
+                        unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_MessageType);
+                        unsubscribeMethod.Invoke(hub, new object[] { this });
+                    }
+#else
                     var unsubscribeMethod = typeof(ITinyMessengerHub).GetMethod("Unsubscribe", new Type[] { typeof(TinyMessageSubscriptionToken) });
                     unsubscribeMethod = unsubscribeMethod.MakeGenericMethod(_MessageType);
                     unsubscribeMethod.Invoke(hub, new object[] { this });
+#endif
                 }
             }
 

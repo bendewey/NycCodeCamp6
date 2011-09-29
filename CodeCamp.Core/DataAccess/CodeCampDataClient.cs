@@ -11,7 +11,8 @@ namespace CodeCamp.Core.DataAccess
 		{
 			_baseUrl = string.Format("{0}/{1}", baseUrl, campKey);
 		}
-		
+
+#if !Metrostyle
 		public void GetCurrentVersion(Action<int> callback) 
 		{
 			var client = new WebClient();
@@ -43,5 +44,36 @@ namespace CodeCamp.Core.DataAccess
 			client.DownloadStringAsync(
 				new Uri(_baseUrl + "/Xml"));
 		}
+#else
+        public async void GetCurrentVersion(Action<int> callback)
+        {
+            try
+            {
+                var client = new System.Net.Http.HttpClient();
+                var response = await client.GetAsync(new Uri(_baseUrl + "/Version"));
+                callback(int.Parse(response.Content.ReadAsString()));
+            }
+            catch (Exception)
+            {
+                callback(-1);
+            }
+        }
+
+        public async void GetXml(Action<string> callback)
+        {
+            string xml = null;
+            try
+            {
+                var client = new System.Net.Http.HttpClient() { MaxResponseContentBufferSize = Int32.MaxValue };
+                var response = await client.GetAsync(new Uri(_baseUrl + "/Xml"));
+                xml = response.Content.ReadAsString();
+            }
+            catch (Exception ex) 
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+            callback(xml);
+        }
+#endif
 	}
 }
