@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using CodeCamp.Core.Entities;
+using NycCodeCamp.MetroApp.Entities;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -49,8 +51,15 @@ namespace NycCodeCamp.MetroApp
             {
                 this._items = value;
                 CollectionViewSource.Source = value;
-                PageTitle.DataContext = value;
+                SetTitleToSelected();
             }
+        }
+
+        private void SetTitleToSelected()
+        {
+            var selected = (FlipView.SelectedItem ?? FlipView.Items.FirstOrDefault()) as Session;
+            if (selected == null) return;
+            PageTitle.DataContext = new SessionGroup(new[] { selected });
         }
 
         public Object Item
@@ -72,6 +81,7 @@ namespace NycCodeCamp.MetroApp
         {
             _flipState["CanFlipNext"] = CanFlipNext;
             _flipState["CanFlipPrevious"] = CanFlipPrevious;
+            SetTitleToSelected();
         }
 
         bool CanFlipPrevious

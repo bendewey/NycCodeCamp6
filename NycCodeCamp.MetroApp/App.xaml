@@ -4,7 +4,7 @@
 
   <Application.Resources>
 
-    <x:String x:Key="AppName">NycCodeCamp.MetroApp</x:String>
+    <x:String x:Key="AppName">NYC Code Camp 6</x:String>
     <SolidColorBrush x:Key="PageBackgroundBrush" Color="#FF0C0C0C"/>
     <SolidColorBrush x:Key="PageForegroundBrush" Color="White"/>
     <SolidColorBrush x:Key="HighlightBrush" Color="#FF26A0DA"/>

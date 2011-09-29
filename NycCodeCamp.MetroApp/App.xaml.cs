@@ -64,7 +64,7 @@ namespace NycCodeCamp.MetroApp
             var groups = CodeCampService.Repository.GetSessions().AsGroups();
 
             var page = new DetailPage();
-            page.Items = groups.FirstOrDefault(g => g.Contains(item));
+            page.Items = CodeCampService.Repository.GetSessions().OrderBy(s => s.Starts).ThenBy(s => s.RoomKey);
             page.Item = item;
             Window.Current.Content = page;
         }
