@@ -202,7 +202,7 @@
         <ColumnDefinition Width="*" />
       </Grid.ColumnDefinitions>
       <Button x:Name="BackButton" Click="BackButton_Click" Style="{StaticResource BackButtonStyle}"/>
-      <TextBlock x:Name="PageTitle" Text="{Binding Key}" Style="{StaticResource PageTitleStyle}" Grid.Column="1" />
+      <TextBlock x:Name="PageTitle" Text="{Binding Title}" Style="{StaticResource PageTitleStyle}" Grid.Column="1" />
     </Grid>
     
     <FlipView x:Name="FlipView" Background="{StaticResource PageBackgroundBrush}" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding Source={StaticResource CollectionViewSource}}" SelectionChanged="FlipView_SelectionChanged">
