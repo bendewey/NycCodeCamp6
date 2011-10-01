@@ -37,7 +37,7 @@ namespace CodeCamp.Core.ViewModels
 			if (startTime < DateTime.UtcNow)
 				return "On Now";
 			
-			return "Starting at " + startTime.ToLocalTime().ToString("d");
+			return "Starting at " + startTime.ToLocalTime().ToString("t");
 		}
 		
 		public class TimeSlot

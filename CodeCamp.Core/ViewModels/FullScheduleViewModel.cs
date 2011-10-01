@@ -19,8 +19,8 @@ namespace CodeCamp.Core.ViewModels
                     select new TimeSlot
                     {
                         Description = string.Format("{0} - {1}",
-                                                    timeSlot.Key.Starts.ToLocalTime().ToString("d"),
-                                                    timeSlot.Key.Ends.ToLocalTime().ToString("d")),
+                                                    timeSlot.Key.Starts.ToLocalTime().ToString("t"),
+                                                    timeSlot.Key.Ends.ToLocalTime().ToString("t")),
                         Sessions = timeSlot.OrderBy(session => session.Title).ToList()
                     }
                 ).ToList();
