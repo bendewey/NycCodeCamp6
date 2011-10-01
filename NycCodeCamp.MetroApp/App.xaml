@@ -7,7 +7,7 @@
     <x:String x:Key="AppName">NYC Code Camp 6</x:String>
     <SolidColorBrush x:Key="PageBackgroundBrush" Color="#FF0C0C0C"/>
     <SolidColorBrush x:Key="PageForegroundBrush" Color="White"/>
-    <SolidColorBrush x:Key="HighlightBrush" Color="#FF26A0DA"/>
+    <SolidColorBrush x:Key="HighlightBrush" Color="#FFB17105"/>
 
     <!-- Common Control Resources -->
 
@@ -27,7 +27,7 @@
     <SolidColorBrush x:Key="ControlTextColor" Color="White"/>
     <SolidColorBrush x:Key="ControlHeaderColor" Color="#FFFFFFFF"/>
 
-    <SolidColorBrush x:Key="PlaceholderImageBrush" Color="Gray"/>
+    <SolidColorBrush x:Key="PlaceholderImageBrush" Color="#FFB17105"/>
     <SolidColorBrush x:Key="TileImageBrush" Color="#548D8D8D"/>
 
     <!-- LayoutRoot Grid Style -->
@@ -344,11 +344,12 @@
     <DataTemplate x:Key="GroupedItemTemplate">
       <Grid HorizontalAlignment="Left" Width="252" Height="252">
         <Border Style="{StaticResource ImagePlaceHolderStyle}" >
-          <Image Source="{Binding Image}" Margin="0" Stretch="UniformToFill"/>
-        </Border>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Title}" Margin="12,8,12,2" 
+                               Style="{StaticResource MediumContentFontSize}" />
+                </Border>
         <StackPanel Grid.Column="1" Style="{StaticResource OverlayStackPanelStyle}">
-          <TextBlock TextWrapping="Wrap" Text="{Binding Title}" Style="{StaticResource NonWrappingSmallContentTextStyle}" Margin="12,8,12,2" HorizontalAlignment="Stretch" Foreground="{StaticResource ControlTextColor}" Height="60"/>
-          <TextBlock TextWrapping="Wrap" Text="{Binding Speaker.Name}" Style="{StaticResource SubHeaderTextStyle}" Margin="12,0,12,8" HorizontalAlignment="Stretch" Height="20"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Speaker.Name}" Style="{StaticResource NonWrappingSmallContentTextStyle}" Margin="12,8,12,2" HorizontalAlignment="Stretch" Foreground="{StaticResource ControlTextColor}" Height="60"/>
+                    <TextBlock TextWrapping="Wrap" Text="{Binding Room}" Style="{StaticResource SubHeaderTextStyle}" Margin="12,0,12,8" HorizontalAlignment="Stretch" Height="20"/>
         </StackPanel>
       </Grid>
     </DataTemplate>
